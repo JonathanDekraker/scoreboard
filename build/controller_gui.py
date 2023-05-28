@@ -3,12 +3,14 @@ import time
 from tkinter import filedialog
 from tkinter import messagebox
 
+from gui import create_canvas
+
 class ControllerGUI(tk.Tk):
-    def __init__(self, gui_file):
+    def __init__(self):
         super().__init__()
         self.title("Controller GUI")
 
-        self.gui_file = gui_file
+        self.canvas = create_canvas()
         self.away_score = tk.StringVar()
         self.home_score = tk.StringVar()
         self.time = tk.StringVar()
@@ -44,19 +46,13 @@ class ControllerGUI(tk.Tk):
 
         penalty_entry = tk.Entry(self, textvariable=self.penalty)
         penalty_entry.grid(row=3, column=1, padx=10, pady=5)
-
+        
         # Buttons
         update_button = tk.Button(self, text="Update", command=self.update_gui)
         update_button.grid(row=4, column=0, padx=10, pady=10, columnspan=2)
 
         start_stop_button = tk.Button(self, text="Start/Stop", command=self.start_stop_timer)
         start_stop_button.grid(row=5, column=0, padx=10, pady=5, columnspan=2)
-
-        # Load GUI file
-        try:
-            exec(open(self.gui_file).read(), globals())
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to load GUI file: {e}")
 
     def update_gui(self):
         try:
@@ -82,6 +78,5 @@ class ControllerGUI(tk.Tk):
             self.after(1000, self.update_timer)
 
 # Create the ControllerGUI instance
-gui_file = "gui.py"
-controller_gui = ControllerGUI(gui_file)
+controller_gui = ControllerGUI()
 controller_gui.mainloop()
