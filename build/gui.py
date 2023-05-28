@@ -37,7 +37,7 @@ def create_canvas():
         595.0,
         118.0,
         anchor="nw",
-        text="Text\n",
+        text="0",
         fill="#FFFFFF",
         font=("Inter", 12 * -1),
         tags="away_score"
@@ -55,7 +55,7 @@ def create_canvas():
         160.0,
         118.0,
         anchor="nw",
-        text="Text\n",
+        text="0",
         fill="#FFFFFF",
         font=("Inter", 12 * -1),
         tags="home_score"
@@ -65,7 +65,7 @@ def create_canvas():
         382.0,
         105.0,
         anchor="nw",
-        text="time",
+        text="00:00",
         fill="#000000",
         font=("Inter", 12 * -1),
         tags="time"

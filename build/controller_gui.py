@@ -11,9 +11,9 @@ class ControllerGUI(tk.Tk):
         self.title("Controller GUI")
 
         self.canvas = create_canvas()
-        self.away_score = tk.StringVar()
-        self.home_score = tk.StringVar()
-        self.time = tk.StringVar()
+        self.away_score = tk.StringVar(value="0")
+        self.home_score = tk.StringVar(value="0")
+        self.time = tk.StringVar(value="00:00")
         self.penalty = tk.StringVar()
         self.timer_running = False
         self.start_time = 0
@@ -66,6 +66,7 @@ class ControllerGUI(tk.Tk):
         except Exception as e:
             messagebox.showerror("Error", f"Failed to update GUI: {e}")
 
+        self.canvas.update_idletasks()
 
     def start_timer(self):
         if not self.timer_running:
