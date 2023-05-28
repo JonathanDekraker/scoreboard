@@ -46,13 +46,16 @@ class ControllerGUI(tk.Tk):
 
         penalty_entry = tk.Entry(self, textvariable=self.penalty)
         penalty_entry.grid(row=3, column=1, padx=10, pady=5)
-        
+
         # Buttons
         update_button = tk.Button(self, text="Update", command=self.update_gui)
         update_button.grid(row=4, column=0, padx=10, pady=10, columnspan=2)
 
-        start_stop_button = tk.Button(self, text="Start/Stop", command=self.start_stop_timer)
-        start_stop_button.grid(row=5, column=0, padx=10, pady=5, columnspan=2)
+        start_button = tk.Button(self, text="Start", command=self.start_timer)
+        start_button.grid(row=5, column=0, padx=10, pady=5)
+
+        stop_button = tk.Button(self, text="Stop", command=self.stop_timer)
+        stop_button.grid(row=5, column=1, padx=10, pady=5)
 
     def update_gui(self):
         try:
@@ -63,19 +66,32 @@ class ControllerGUI(tk.Tk):
         except Exception as e:
             messagebox.showerror("Error", f"Failed to update GUI: {e}")
 
-    def start_stop_timer(self):
-        if self.timer_running:
-            self.timer_running = False
-        else:
+
+    def start_timer(self):
+        if not self.timer_running:
+            time_str = self.time.get()
+            minutes, seconds = time_str.split(":")
+            self.start_time = int(minutes) * 60 + int(seconds)
             self.timer_running = True
-            self.start_time = time.time()
             self.update_timer()
 
+
+    def stop_timer(self):
+        self.timer_running = False
+
     def update_timer(self):
-        if self.timer_running:
-            elapsed_time = time.time() - self.start_time
-            self.time.set(time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
-            self.after(1000, self.update_timer)
+        if self.timer_running and self.start_time >= 0:
+            minutes = self.start_time // 60
+            seconds = self.start_time % 60
+            time_str = f"{minutes:02d}:{seconds:02d}"
+            self.time.set(time_str)
+            self.canvas.itemconfigure("time", text=time_str)
+
+            if self.start_time > 0:
+                self.start_time -= 1
+                self.after(1000, self.update_timer)
+
+
 
 # Create the ControllerGUI instance
 controller_gui = ControllerGUI()
