@@ -49,13 +49,13 @@ class ControllerGUI(tk.Tk):
 
         # Buttons
         update_button = tk.Button(self, text="Update", command=self.update_gui)
-        update_button.grid(row=4, column=0, padx=10, pady=10, columnspan=2)
+        update_button.grid(row=5, column=0, padx=10, pady=10, columnspan=2)
 
         start_button = tk.Button(self, text="Start", command=self.start_timer)
-        start_button.grid(row=5, column=0, padx=10, pady=5)
+        start_button.grid(row=6, column=0, padx=10, pady=5)
 
         stop_button = tk.Button(self, text="Stop", command=self.stop_timer)
-        stop_button.grid(row=5, column=1, padx=10, pady=5)
+        stop_button.grid(row=6, column=1, padx=10, pady=5)
 
     def update_gui(self):
         try:
@@ -75,7 +75,6 @@ class ControllerGUI(tk.Tk):
             self.start_time = int(minutes) * 60 + int(seconds)
             self.timer_running = True
             self.update_timer()
-
 
     def stop_timer(self):
         self.timer_running = False
